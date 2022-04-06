@@ -1,1 +1,14 @@
-# rust_task_scheduler
+# Task
+Implement basic function to split some generic computational work between threads. Split should occur only on some threshold - if computational work (input length) is shorter than this threshold, no splitting should occur and no threads should be created.
+
+You get as input:
+
+```rust
+Vec
+Function f(t: T) -> R
+Threshold can be just constant.
+```
+
+You should return:
+
+Up to you, but probably some Vec of the same length as input(1)
