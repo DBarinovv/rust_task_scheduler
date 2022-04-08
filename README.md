@@ -18,4 +18,12 @@ Up to you, but probably some Vec of the same length as input(1)
 - Split the input data into small chunks (if chunk size is smaller than threshold skip next step)
 - Use a [threadpool](https://docs.rs/threadpool/latest/threadpool/)
 - Compute the answer
-2. 
+2. Like [1](https://github.com/DBarinovv/rust_task_scheduler#solution-ideas), but implement threadpool with own hand
+- Implement own threadpool
+- We assume that the input data is a ```vec<T>```
+- Split the input data into small chunks. Size of each chunk remains to be determined but we definitely don't need very small and very large pieces
+- Find out the optimal amount of workers in our threadpool for the current input data. It should depend on the number of cores count and the size of the data
+- Use threadpool with chunks as input
+- Each worker receives a chunk and compute ```f(chunk)```
+- Output data is ```vec<R>``` with a length equal to the input ```vec<T>```
+- Each worker after computation puts the calculated data in the correct place in ```vec<T>```
