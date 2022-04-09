@@ -27,3 +27,4 @@ Up to you, but probably some Vec of the same length as input(1)
 - Each worker receives a chunk and compute ```f(chunk)```
 - Output data is ```vec<R>``` with a length equal to the input ```vec<T>```
 - Each worker after computation puts the calculated data in the correct place in ```vec<T>```
+3. Use [Rayon](https://github.com/rayon-rs/rayon)
