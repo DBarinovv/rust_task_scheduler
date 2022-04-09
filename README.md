@@ -22,7 +22,7 @@ Up to you, but probably some Vec of the same length as input(1)
 - Implement own threadpool (if threshold is bigger than input data length, otherwise we don't create any other thread)
 - We assume that the input data is a ```vec<T>```
 - Split the input data into small chunks. Size of each chunk remains to be determined but we definitely don't need very small and very large pieces
-- Find out the optimal amount of workers in our threadpool for the current input data. It should depend on the number of cores count and the size of the data
+- Find out the optimal amount of workers in our threadpool for the current input data. ~~It should depend on the number of cores count and the size of the data~~ Let's use [crate num_cpus](https://docs.rs/num_cpus/latest/num_cpus/)
 - Use threadpool with chunks as input
 - Each worker receives a chunk and compute ```f(chunk)```
 - Output data is ```vec<R>``` with a length equal to the input ```vec<T>```
