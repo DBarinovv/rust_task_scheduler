@@ -3,6 +3,8 @@ use threadpool::ThreadPool;
 
 extern crate num_cpus;
 
+type OUT = i32;
+
 fn main() {
     let input_size = 102;
     let threshold = 20;
@@ -10,7 +12,7 @@ fn main() {
     let input = Arc::new(get_vec::<i32>(input_size));
     
     if threshold >= input_size {
-        let res = process::<i32, i32>(&input[..]);
+        let res = process(&input[..]);
         println!{"{:#?}", res};
 
         return
@@ -29,7 +31,7 @@ fn main() {
         
         pool.execute(move|| 
             { 
-                let sub_res = process::<i32, i32>(&helper[lower_bound..upper_bound]);
+                let sub_res = process(&helper[lower_bound..upper_bound]);
                 sender.send(sub_res).expect("Unable to send data");
                 println!("Thread {i} passed")
             });
@@ -43,10 +45,10 @@ fn main() {
     println!("{:#?}", res);
 }
 
-fn process<T, R>(vec: &[T]) -> Vec<R>
+fn process<T>(vec: &[T]) -> Vec<OUT>
 where 
-    R: Default,
-    R: Clone,
+    OUT: Default,
+    OUT: Clone,
 {
     let mut res = Vec::with_capacity(vec.len());
 
@@ -57,8 +59,9 @@ where
     res
 }
 
-fn f<T, R: Default>(_t: T) -> R {
-    R::default()
+fn f<T>(_t: T) -> OUT {
+    5
+    // OUT::default()
 }
 
 fn get_vec<T>(n: i32) -> Vec<T> 
