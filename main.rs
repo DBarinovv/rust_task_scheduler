@@ -3,13 +3,14 @@ use threadpool::ThreadPool;
 
 extern crate num_cpus;
 
-type OUT = i32;
+// type of output
+type OUT = i32; // can be changed
 
 fn main() {
-    let input_size = 102;
-    let threshold = 20;
+    let input_size = 102; // can be changed
+    let threshold = 20; // can be changed
 
-    let input = Arc::new(get_vec::<i32>(input_size));
+    let input = Arc::new(get_vec::<i32>(input_size)); // Type can be changed
     
     if threshold >= input_size {
         let res = process(&input[..]);
@@ -45,10 +46,9 @@ fn main() {
     println!("{:#?}", res);
 }
 
-fn process<T>(vec: &[T]) -> Vec<OUT>
+pub fn process<T>(vec: &[T]) -> Vec<OUT>
 where 
-    OUT: Default,
-    OUT: Clone,
+    OUT: Default + Clone,
 {
     let mut res = Vec::with_capacity(vec.len());
 
@@ -59,15 +59,15 @@ where
     res
 }
 
+// given function
 fn f<T>(_t: T) -> OUT {
     5
     // OUT::default()
 }
 
-fn get_vec<T>(n: i32) -> Vec<T> 
+pub fn get_vec<T>(n: i32) -> Vec<T> 
 where 
-    T: Default,
-    T: Clone,
+    T: Default + Clone,
 {
     vec![T::default(); n as usize]
 }
