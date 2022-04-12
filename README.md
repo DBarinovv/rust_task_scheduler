@@ -28,3 +28,14 @@ Up to you, but probably some Vec of the same length as input(1)
 - Output data is ```vec<R>``` with a length equal to the input ```vec<T>```
 - Each worker after computation puts the calculated data in the correct place in ```vec<T>```
 3. Use [Rayon](https://github.com/rayon-rs/rayon)
+
+## Implementations  
+1. First of all I implemented [1.](https://github.com/DBarinovv/rust_task_scheduler#solution-ideas). There were some main thoughts and problems:
+- if ```threshold >= input_size ``` we don't create threadpool
+- we need to send vector to different threads. The solution is to use [Arc](https://doc.rust-lang.org/std/sync/struct.Arc.html) and clone the reference for each thread
+- split the input data into `N` slices, where `N` is some step
+- for each thread run `process` function 
+- `process` is a template function that returns ```Vec<Out>``` with the same size as the input slice
+- we also need to send back some data (```Vec<Out>```). The solution is to use [channel](https://doc.rust-lang.org/rust-by-example/std_misc/channels.html)
+- than we wait until all threads have finished their jobs (using ```pool.join()```)
+- we output some additional information as well
