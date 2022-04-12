@@ -32,6 +32,7 @@ Up to you, but probably some Vec of the same length as input(1)
 ## Implementations  
 1. First of all I implemented [1.](https://github.com/DBarinovv/rust_task_scheduler#solution-ideas). There were some main thoughts and problems:
 - if ```threshold >= input_size ``` we don't create threadpool
+- we create `threadpool` with `num_cpus` workers. Look at [crate num_cpus](https://docs.rs/num_cpus/latest/num_cpus/)
 - we need to send vector to different threads. The solution is to use [Arc](https://doc.rust-lang.org/std/sync/struct.Arc.html) and clone the reference for each thread
 - split the input data into `N` slices, where `N` is some step
 - for each thread run `process` function 
